@@ -1,0 +1,7 @@
+.git
+.github
+tests
+README.md
+Makefile
+examples/compose.yaml
+examples/app_password.txt
