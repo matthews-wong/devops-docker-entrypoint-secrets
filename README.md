@@ -39,5 +39,24 @@ Rules:
 
 ## Validate
 
-See the `Makefile` once it lands; the checks are `shellcheck`, `hadolint` and a
-plain `sh` test script that needs no container runtime.
+```sh
+make validate
+```
+
+This runs `shellcheck` on every script, `hadolint` on the example `Dockerfile`
+and `tests/test_entrypoint.sh`, a plain `sh` script that needs no container
+runtime. The image itself is not built here: the checks cover the entrypoint
+logic and the Dockerfile text, not a running container.
+
+## Layout
+
+- `entrypoint.sh`: the entrypoint to copy into your image
+- `Dockerfile`, `examples/`: a pinned, non-root, healthchecked demo image and
+  a hardened Compose file that mounts the secret
+- `tests/`: behaviour tests for the entrypoint
+
+## Limits
+
+The variable list comes from `env`, so a value that itself contains a line
+shaped like `X_FILE=...` would be picked up as well. Environment values are
+operator-controlled configuration, so this is accepted.
